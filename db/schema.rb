@@ -10,9 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_03_000000) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_04_003140) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "accounts", force: :cascade do |t|
+    t.string "number", limit: 16, null: false
+    t.bigint "opening_balance_cents", null: false
+    t.bigint "balance_cents", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["number"], name: "index_accounts_on_number", unique: true
+  end
 
   create_table "solid_cable_messages", force: :cascade do |t|
     t.binary "channel", null: false
