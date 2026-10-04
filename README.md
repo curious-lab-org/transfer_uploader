@@ -157,7 +157,7 @@ erDiagram
     accounts {
         bigint id PK
         string number UK "exactly 16 digits, ADR-2"
-        bigint balance_cents "non-null, CHECK >= 0, ADR-3"
+        bigint balance_cents "non-null; >= 0 by model validation, not a DB constraint, ADR-3"
         bigint opening_balance_cents "written once by the rake task, ADR-9"
     }
 
