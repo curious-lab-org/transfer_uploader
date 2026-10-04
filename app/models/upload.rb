@@ -9,4 +9,9 @@ class Upload < ApplicationRecord
   enum :state, STATES.index_with(&:itself), validate: true
 
   validates :business_date, presence: true
+  validate :file_must_be_attached
+
+  def file_must_be_attached
+    errors.add(:file, "must be provided") unless file.attached?
+  end
 end

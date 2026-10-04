@@ -7,7 +7,13 @@ RSpec.describe Transfers::Apply do
   let(:to_number) { "1212343433335665" }
   let(:unknown_number) { "9999999999999999" }
 
-  let(:upload) { Upload.create!(business_date: Date.new(2026, 10, 4)) }
+  let(:upload) do
+    upload = Upload.new(business_date: Date.new(2026, 10, 4))
+    path = Rails.root.join('spec/fixtures/files/imports/valid_transfers.csv')
+    upload.file.attach(io: path.open, filename: 'valid_transfers.csv', content_type: 'text/csv')
+    upload.save!
+    upload
+  end
   let(:accounts) { Account.pluck(:number, :id).to_h }
 
   def create_account(number, cents)

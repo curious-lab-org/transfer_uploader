@@ -7,9 +7,10 @@ RSpec.describe ProcessUploadJob do
   let(:upload) { build_upload(filename) }
 
   def build_upload(filename, business_date: Date.new(2026, 10, 4))
-    upload = Upload.create!(business_date:)
+    upload = Upload.new(business_date:)
     path = Rails.root.join('spec/fixtures/files/imports', filename)
     upload.file.attach(io: path.open, filename:, content_type: 'text/csv')
+    upload.save!
     upload
   end
 
