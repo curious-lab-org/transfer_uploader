@@ -23,7 +23,7 @@ class Imports::InitialBalances
   def read
     File.open(path, "r") { |file| parser.new(io: file).to_a }
   rescue Errno::ENOENT, Errno::EISDIR, TypeError
-    raise ImportErrors::InitialBalances::FileNotFoundError, path.inspect
+    raise ImportErrors::InitialBalances::FileNotFoundError, path.to_s
   end
 
   # Ignore existing accounts
@@ -31,7 +31,7 @@ class Imports::InitialBalances
     Account.transaction do
       existing = Account.where(number: rows.map(&:number)).pluck(:number)
 
-      rows.reject { |row| existing.include?(row.number) }.each do |row|
+      rows.reject { |row| existing.include?(row.number) }.map do |row|
         Account.create!(number: row.number,
           balance_cents: row.amount_cents,
           opening_balance_cents: row.amount_cents)
