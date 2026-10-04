@@ -1,3 +1,4 @@
+# Account record with opening and current balance
 class Account < ApplicationRecord
   NUMBER_FORMAT = /\A\d{16}\z/
 

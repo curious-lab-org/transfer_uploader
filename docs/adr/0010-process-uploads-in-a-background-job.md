@@ -16,5 +16,5 @@ before the first finishes — and idempotency doesn't stop it.
 
 Take the upload in the request, process it in a background job, one upload at a time
 across the whole system. The controller stores the file with Active Storage, creates
-the upload record, validates parameters and digests the bytes, then enqueues the job;
-it does no parsing (ADR-7).
+the upload record and validates parameters, then enqueues the job; it does no parsing
+(ADR-7).
