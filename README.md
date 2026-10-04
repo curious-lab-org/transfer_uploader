@@ -164,8 +164,7 @@ erDiagram
     uploads {
         bigint id PK
         date business_date "non-null; one completed upload per date, ADR-7, ADR-11"
-        string digest "SHA-256 of the bytes, data only, ADR-11"
-        string state "pending processing completed failed, aasm, ADR-10"
+        string state "pending processing completed failed, enum, ADR-10"
         text error_message "set when a run fails or is refused, ADR-12"
     }
 
@@ -174,9 +173,9 @@ erDiagram
         bigint upload_id FK
         integer row_number "position in the file, unique per upload"
         string outcome "applied rejected, ADR-12"
-        bigint from_account_id FK
-        bigint to_account_id FK
-        bigint amount_cents "non-null, as are the columns above"
+        bigint from_account_id FK "null when we don't hold the account, ADR-4"
+        bigint to_account_id FK "null when we don't hold the account, ADR-4"
+        bigint amount_cents "non-null, as are upload_id, row_number and outcome"
         string reason "why it was rejected"
     }
 ```

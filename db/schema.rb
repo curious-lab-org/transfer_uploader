@@ -239,7 +239,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_04_023629) do
 
   create_table "uploads", force: :cascade do |t|
     t.date "business_date", null: false
-    t.string "digest", null: false
     t.string "state", default: "pending", null: false
     t.text "error_message"
     t.datetime "created_at", null: false

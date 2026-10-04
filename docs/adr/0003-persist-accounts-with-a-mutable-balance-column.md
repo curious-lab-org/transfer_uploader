@@ -16,7 +16,7 @@ Three tables.
 
 ```
 accounts   number, balance_cents, opening_balance_cents
-uploads    business_date, digest, state, error_message
+uploads    business_date, state, error_message
 transfers  upload_id, row_number, outcome,
            from_account_id, to_account_id, amount_cents, reason
 ```

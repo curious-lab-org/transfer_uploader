@@ -2,7 +2,6 @@ class CreateUploads < ActiveRecord::Migration[8.1]
   def change
     create_table :uploads do |t|
       t.date :business_date, null: false
-      t.string :digest, null: false
       t.string :state, null: false, default: "pending"
       t.text :error_message
 
