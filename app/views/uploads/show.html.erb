@@ -1,0 +1,65 @@
+<% content_for :title, "Upload — #{@upload.business_date.strftime('%-d %B %Y')}" %>
+
+<main class="container">
+  <nav class="breadcrumb">
+    <%= link_to "Uploads", uploads_path %>
+  </nav>
+
+  <header class="page-header">
+    <h1>
+      <%= @upload.business_date.strftime("%-d %B %Y") %>
+      <span class="state state--<%= @upload.state %>"><%= @upload.state.humanize %></span>
+    </h1>
+  </header>
+
+  <dl class="facts">
+    <div>
+      <dt>File</dt>
+      <dd><%= @upload.file.attached? ? @upload.file.filename : tag.span("—", class: "muted") %></dd>
+    </div>
+    <div>
+      <dt>Uploaded</dt>
+      <dd><%= @upload.created_at.strftime("%-d %b %Y, %H:%M") %></dd>
+    </div>
+    <div>
+      <dt>Applied</dt>
+      <dd><%= @transfers.count(&:applied?) %></dd>
+    </div>
+    <div>
+      <dt>Rejected</dt>
+      <dd><%= @transfers.count(&:rejected?) %></dd>
+    </div>
+    <div>
+      <dt>Value applied</dt>
+      <dd><%= number_to_currency(@transfers.select(&:applied?).sum(&:amount_cents) / 100.0) %></dd>
+    </div>
+  </dl>
+
+  <% if @upload.failed? && @upload.error_message.present? %>
+    <pre class="upload-error upload-error--standalone"><%= @upload.error_message %></pre>
+  <% end %>
+
+  <% if @transfers.any? %>
+    <div class="table-wrap">
+      <table class="uploads transfers">
+        <thead>
+          <tr>
+            <th class="numeric">Row</th>
+            <th>From</th>
+            <th>To</th>
+            <th class="numeric">Amount</th>
+            <th>Outcome</th>
+            <th>Reason</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%= render partial: "transfer", collection: @transfers %>
+        </tbody>
+      </table>
+    </div>
+  <% else %>
+    <p class="empty">
+      No transfers. <%= @upload.failed? ? "This file failed before any row could be applied." : "Nothing in this file produced a transfer." %>
+    </p>
+  <% end %>
+</main>

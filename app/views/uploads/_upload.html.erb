@@ -1,0 +1,24 @@
+<tr id="<%= dom_id(upload) %>" class="upload upload--<%= upload.state %>">
+  <td><%= link_to upload.business_date.strftime("%-d %B %Y"), upload_path(upload) %></td>
+  <td>
+    <% if upload.file.attached? %>
+      <%= upload.file.filename %>
+    <% else %>
+      <span class="muted">&mdash;</span>
+    <% end %>
+  </td>
+  <td>
+    <span class="state state--<%= upload.state %>"><%= upload.state.humanize %></span>
+  </td>
+  <td class="numeric"><%= upload.transfers.count(&:applied?) %></td>
+  <td class="numeric"><%= upload.transfers.count(&:rejected?) %></td>
+  <td><%= upload.created_at.to_fs(:short) %></td>
+</tr>
+
+<% if upload.failed? && upload.error_message.present? %>
+  <tr class="upload-error-row">
+    <td colspan="6">
+      <pre class="upload-error"><%= upload.error_message %></pre>
+    </td>
+  </tr>
+<% end %>

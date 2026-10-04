@@ -1,0 +1,32 @@
+<% content_for :title, "Uploads" %>
+
+<main class="container">
+  <header class="page-header">
+    <h1>Uploads</h1>
+    <%= link_to "New upload", new_upload_path, class: "button" %>
+  </header>
+
+  <% if @uploads.any? %>
+    <div class="table-wrap">
+      <table class="uploads">
+        <thead>
+          <tr>
+            <th>Business date</th>
+            <th>File</th>
+            <th>State</th>
+            <th class="numeric">Applied</th>
+            <th class="numeric">Rejected</th>
+            <th>Uploaded</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%= render @uploads %>
+        </tbody>
+      </table>
+    </div>
+  <% else %>
+    <p class="empty">
+      No uploads yet. <%= link_to "Upload a transfers file", new_upload_path %> to get started.
+    </p>
+  <% end %>
+</main>

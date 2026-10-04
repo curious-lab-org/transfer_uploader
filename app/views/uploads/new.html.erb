@@ -1,0 +1,37 @@
+<% content_for :title, "New upload" %>
+
+<main class="container">
+  <header class="page-header">
+    <h1>New upload</h1>
+    <%= link_to "Back to uploads", uploads_path %>
+  </header>
+
+  <%= form_with model: @upload, class: "upload-form" do |form| %>
+    <% if @upload.errors.any? %>
+      <div class="form-errors" role="alert">
+        <h2><%= pluralize(@upload.errors.count, "error") %> prevented this upload from being saved</h2>
+        <ul>
+          <% @upload.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <%= form.label :business_date, "Business date" %>
+      <%= form.date_field :business_date, required: true %>
+      <p class="hint">The day these transfers apply to. A date can only be completed once.</p>
+    </div>
+
+    <div class="field">
+      <%= form.label :file, "Transfers CSV" %>
+      <%= form.file_field :file, accept: ".csv,text/csv" %>
+      <p class="hint">Headerless CSV. Rows that fail validation are recorded as rejected.</p>
+    </div>
+
+    <div class="actions">
+      <%= form.submit "Upload" %>
+    </div>
+  <% end %>
+</main>
