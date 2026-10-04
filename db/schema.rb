@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_04_023035) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_04_023629) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -221,6 +221,33 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_04_023035) do
     t.index ["key"], name: "index_solid_queue_semaphores_on_key", unique: true
   end
 
+  create_table "transfers", force: :cascade do |t|
+    t.bigint "upload_id", null: false
+    t.integer "row_number", null: false
+    t.string "outcome", null: false
+    t.bigint "from_account_id"
+    t.bigint "to_account_id"
+    t.bigint "amount_cents", null: false
+    t.string "reason"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["from_account_id"], name: "index_transfers_on_from_account_id"
+    t.index ["to_account_id"], name: "index_transfers_on_to_account_id"
+    t.index ["upload_id", "row_number"], name: "index_transfers_on_upload_id_and_row_number", unique: true
+    t.index ["upload_id"], name: "index_transfers_on_upload_id"
+  end
+
+  create_table "uploads", force: :cascade do |t|
+    t.date "business_date", null: false
+    t.string "digest", null: false
+    t.string "state", default: "pending", null: false
+    t.text "error_message"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["business_date"], name: "index_uploads_on_business_date"
+    t.index ["business_date"], name: "index_uploads_on_completed_business_date", unique: true, where: "((state)::text = 'completed'::text)"
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "solid_queue_batch_executions", "solid_queue_batches", column: "batch_id", on_delete: :cascade
@@ -231,4 +258,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_04_023035) do
   add_foreign_key "solid_queue_ready_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_recurring_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_scheduled_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
+  add_foreign_key "transfers", "accounts", column: "from_account_id"
+  add_foreign_key "transfers", "accounts", column: "to_account_id"
+  add_foreign_key "transfers", "uploads"
 end
