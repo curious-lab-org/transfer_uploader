@@ -18,7 +18,8 @@ class Transfers::Apply
 
     credit(to_id, row.amount_cents)
 
-    upload.transfers.create!(
+    Transfer.create!(
+      upload:,
       row_number: row.line_number,
       outcome: :applied,
       from_account_id: from_id,
@@ -46,7 +47,8 @@ class Transfers::Apply
   end
 
   def reject(row, reason)
-    upload.transfers.create!(
+    Transfer.create!(
+      upload:,
       row_number: row.line_number,
       outcome: :rejected,
       reason:,
