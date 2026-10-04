@@ -2,7 +2,7 @@
 
 ## Status
 
-Accepted — 2026-10-03
+Accepted - 2026-10-03
 
 ## Context
 
@@ -15,12 +15,11 @@ and we do not want sub cents.
 ## Decision
 
 All money is an `Integer` of cents, in `bigint` columns named `*_cents`. `t.integer`
-caps at $21.4m, which one corporate balance can exceed.
+caps at $21.4m.
 
 The parser matches `/\A\d{1,13}(\.\d{1,2})?\z/` before converting, because
-`BigDecimal` accepts `1e3`, `5_00.00` and `500.` happily (ADR-6). So `500.100` fails
-for its third decimal place, nothing is rounded, and an absurd amount fails the run
-cleanly instead of hitting a Postgres range error part-way through.
+`BigDecimal` accepts `1e3`, `5_00.00` and `500.`. So `500.100` fails
+for its third decimal place, nothing is rounded.
 
 Every amount is AUD by assumption. We don't store a currency.
 

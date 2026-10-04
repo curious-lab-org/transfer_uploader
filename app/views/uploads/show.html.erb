@@ -1,4 +1,4 @@
-<% content_for :title, "Upload — #{@upload.business_date.strftime('%-d %B %Y')}" %>
+<% content_for :title, "Upload - #{@upload.business_date.strftime('%-d %B %Y')}" %>
 
 <main class="container">
   <nav class="breadcrumb">
@@ -15,7 +15,7 @@
   <dl class="facts">
     <div>
       <dt>File</dt>
-      <dd><%= @upload.file.attached? ? @upload.file.filename : tag.span("—", class: "muted") %></dd>
+      <dd><%= @upload.file.attached? ? @upload.file.filename : tag.span("-", class: "muted") %></dd>
     </div>
     <div>
       <dt>Uploaded</dt>

@@ -15,7 +15,7 @@ module ImportErrors
         @row_errors = row_errors
         super(row_errors.map { |row_error|
           "line #{row_error.line_number}: #{row_error.field} " \
-            "#{row_error.value.inspect} — #{row_error.message}"
+            "#{row_error.value.inspect} - #{row_error.message}"
         }.join("\n").presence || "invalid file data")
       end
     end

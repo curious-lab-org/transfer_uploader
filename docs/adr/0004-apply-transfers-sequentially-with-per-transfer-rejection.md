@@ -2,7 +2,7 @@
 
 ## Status
 
-Accepted — 2026-10-03
+Accepted - 2026-10-03
 
 ## Context
 
@@ -11,19 +11,19 @@ each other, so one refused transfer doesn't have to stop the day.
 
 Order matters because of the overdraft rule: with `A` holding $100, `B -> A 500` then
 `A -> C 300` both succeed, but reversed the second has only $100 behind it. We pick
-file order — it's what the company wrote, it's repeatable, and a rejection can be
+file order - it's what the company wrote, it's repeatable, and a rejection can be
 explained in terms of it.
 
 ## Decision
 
 One transaction for the whole run, and inside it one transfer at a time in file order.
-A day's file is thousands of lines, so the transaction is short enough not to engineer
-around, and in exchange an upload is atomic — no half-applied uploads, resumption,
-progress reporting or partial failure states.
+A day's file is thousands of lines ( assumption ), so the transaction is short
+enough not to engineer around. In exchange an upload is atomic - no half-applied
+uploads, resumption, progress reporting or partial failure states.
 
-For each line: look up both accounts (unknown account, reject), check the source
+For each line: look up both accounts, check the source
 covers it (`balance_cents < amount_cents`, reject), then debit, credit and record it
-as applied (ADR-3). The debit is conditional in the statement that performs it:
+as applied. The debit is conditional in the statement that performs it:
 
 ```sql
 UPDATE accounts SET balance_cents = balance_cents - :amount

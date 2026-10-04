@@ -2,24 +2,22 @@
 
 ## Status
 
-Accepted — 2026-10-03
+Accepted - 2026-10-03
 
 ## Context
 
 A 16-digit number could be stored as an integer or a string. Integers lose leading
-zeros — `"0111234522226789".to_i.to_s` is a different account.
+zeros - `"0111234522226789".to_i.to_s` is a different account.
 
 ## Decision
 
 Strings, validated as exactly 16 ASCII digits (`/\A\d{16}\z/`) when parsing, with a
-unique index on the column. Never coerced to a number, never sorted as one.
+unique index on the column. 
 
-Surrounding whitespace is stripped first, including what `String#strip` misses: a
-non-breaking space, a zero-width space.
-
-A number that fails the pattern makes its line unparseable, which fails the run
-(ADR-6). That isn't a rejection — we keep that word for a well-formed transfer
-refused by a rule (ADR-4).
+Surrounding whitespace is stripped first.
+A number that fails the pattern makes its line unparseable, which fails the run.
+That isn't a rejection - we keep that word for a well-formed transfer
+refused by a rule.
 
 ## Consequences
 

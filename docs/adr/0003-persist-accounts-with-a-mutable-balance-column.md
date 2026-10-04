@@ -2,12 +2,12 @@
 
 ## Status
 
-Accepted — 2026-10-03
+Accepted - 2026-10-03
 
 ## Context
 
 Balances survive between uploads and between days, so they live in the database. A
-ledger is auditable and what a real bank does  but I don't want to over architect it
+ledger is auditable and what a real bank does but I don't want to over architect it
 for simple use.
 
 ## Decision

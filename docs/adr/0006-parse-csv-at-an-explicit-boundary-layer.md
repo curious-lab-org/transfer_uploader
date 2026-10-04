@@ -2,7 +2,7 @@
 
 ## Status
 
-Accepted — 2026-10-03
+Accepted - 2026-10-03
 
 ## Context
 
@@ -13,7 +13,7 @@ added, a file that isn't CSV.
 
 ## Decision
 
-Two parsers, one per file. The transfers parser runs in the job, the balances parser
-in the rake task (ADR-9). Each takes an `IO` and yields, per line, either a valid
+Two parsers, per import. The transfers parser runs in the job, the balances parser
+in the rake task. Each takes an `IO` and yields, per line, either a valid
 domain value or a structured error with the row number, what was wrong, and the
 value we got.

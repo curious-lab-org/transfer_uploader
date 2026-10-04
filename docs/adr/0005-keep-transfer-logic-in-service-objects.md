@@ -2,7 +2,7 @@
 
 ## Status
 
-Accepted — 2026-10-03
+Accepted - 2026-10-03
 
 ## Context
 
@@ -13,4 +13,5 @@ overdraft rule means uploading a file.
 
 Rules in service objects, Rails at the edges.
 
-The controller hands off an upload and holds no rules.
+The controller hands off an upload and holds no rules.  This means that its testable
+independently of Rails and we don't have to run Rails to test the business rules.

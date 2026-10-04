@@ -16,7 +16,7 @@ and where the balances ended up.
 - Money can't leave an account if that would put the balance below $0.
 - Load one company's balances, then accept a day's transfers from a CSV file.
 
-### What we decided
+### What was decided
 
 - Amounts are integer cents, validated to two decimal places, so there's no float
   drift and no rounding
@@ -26,8 +26,8 @@ and where the balances ended up.
   ([ADR-4](docs/adr/0004-apply-transfers-sequentially-with-per-transfer-rejection.md)).
 - A transfer refused by a rule is recorded as rejected, and the rest of the file
   still applies (ADR-4).
-- A line we can't parse — a bad amount, a 15 digit account number, a transfer from an
-  account to itself — fails the whole upload. The date stays open, so the company
+- A line we can't parse - a bad amount, a 15 digit account number, a transfer from an
+  account to itself - fails the whole upload. The date stays open, so the company
   fixes the file and sends it again
   ([ADR-6](docs/adr/0006-parse-csv-at-an-explicit-boundary-layer.md)).
 - A business date accepts one file. Re-submitting a date that has already been
@@ -42,7 +42,7 @@ and where the balances ended up.
 
 No login, sessions or authorisation
 ([ADR-8](docs/adr/0008-one-company-no-login-no-scoping.md)). No multi-company
-scoping. No ledger, so no balances as of a date and no reversals — a mistake is
+scoping. No ledger, so no balances as of a date and no reversals - a mistake is
 corrected by another transfer
 ([ADR-3](docs/adr/0003-persist-accounts-with-a-mutable-balance-column.md)). No
 restarting a day once it has been processed (ADR-11).
@@ -152,6 +152,8 @@ Decisions are recorded as ADRs in [`docs/adr/`](docs/adr/). The
 
 No application code exists yet. The diagram below is the model the ADRs
 describe, not a map of what's in `app/`.
+
+Note: the UI/Views was done with the help of AI to get it going quick
 
 ### The model
 

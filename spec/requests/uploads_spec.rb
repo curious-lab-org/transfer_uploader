@@ -35,7 +35,7 @@ RSpec.describe "Uploads", type: :request do
       build_upload(
         business_date: Date.new(2026, 10, 3),
         state: :failed,
-        error_message: "line 7: amount \"-50\" — must be positive"
+        error_message: "line 7: amount \"-50\" - must be positive"
       )
 
       get uploads_path
@@ -114,7 +114,7 @@ RSpec.describe "Uploads", type: :request do
       upload = build_upload(
         business_date: Date.new(2026, 10, 3),
         state: :failed,
-        error_message: "line 9: to_account \"123\" — expected 16 digits"
+        error_message: "line 9: to_account \"123\" - expected 16 digits"
       )
 
       get upload_path(upload)

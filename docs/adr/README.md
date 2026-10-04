@@ -1,17 +1,7 @@
 # Architecture Decision Records
 
 Why this system is built the way it is: the decisions that were expensive to change,
-and the ones you'd otherwise have to ask about.
-
-Each file follows the [Nygard template](http://thinkrelevance.com/blog/2011/11/15/documenting-architecture-decisions):
-Status, Context, Decision, Consequences. The skeleton is in
-[`0000-template.md`](0000-template.md), and cross-references sit in a `Related` line
-at the foot of each one.
-
-All twelve are accepted and none has been superseded. They were written together
-before any code existed, so they've been amended in place rather than replaced. From
-the first migration onwards a decision that changes gets a new ADR, and the old one's
-status becomes `Superseded by ADR-NNNN`.
+assumptions that were made.
 
 ## Start here
 
