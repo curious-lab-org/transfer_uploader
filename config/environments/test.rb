@@ -25,6 +25,9 @@ Rails.application.configure do
   # Render exception templates for rescuable exceptions and raise for other exceptions.
   config.action_dispatch.show_exceptions = :rescuable
 
+  # Let request specs assert on enqueued jobs rather than running them inline.
+  config.active_job.queue_adapter = :test
+
   # Disable request forgery protection in test environment.
   config.action_controller.allow_forgery_protection = false
 

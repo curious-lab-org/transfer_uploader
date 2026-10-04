@@ -1,0 +1,10 @@
+<tr class="transfer transfer--<%= transfer.outcome %>">
+  <td class="numeric"><%= transfer.row_number %></td>
+  <td class="account"><%= transfer.from_account&.number || tag.span("unknown", class: "muted") %></td>
+  <td class="account"><%= transfer.to_account&.number || tag.span("unknown", class: "muted") %></td>
+  <td class="numeric"><%= number_to_currency(transfer.amount_cents / 100.0) %></td>
+  <td>
+    <span class="outcome outcome--<%= transfer.outcome %>"><%= transfer.outcome.humanize %></span>
+  </td>
+  <td class="reason"><%= transfer.reason %></td>
+</tr>

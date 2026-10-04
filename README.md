@@ -96,11 +96,22 @@ You need Ruby (see [`.ruby-version`](.ruby-version)) and Docker for the local
 PostgreSQL database. PostgreSQL runs in every environment, including test.
 
 ```sh
-docker compose up -d    # PostgreSQL
-bin/setup               # gems, database, dev server
+docker compose up -d       # PostgreSQL
+bin/setup --skip-server    # gems and database, without starting the server
 ```
 
-`bin/setup --skip-server` sets up without starting the server.
+Then load the opening balances, and start the app:
+
+```sh
+bin/rails "balances:load[./samples/account_balances.csv]"
+bin/dev
+```
+
+Load the balances before uploading any transfers. A transfer naming an account we
+don't hold is rejected rather than applied, so a file uploaded against an empty
+database comes back with every row rejected as an unknown account.
+
+`bin/setup` on its own does the same setup and then starts the server.
 
 ### Running the app
 
@@ -115,7 +126,7 @@ Opening balances are loaded once, from the command line rather than the web app
 ([ADR-9](docs/adr/0009-load-opening-balances-with-a-rake-task.md)):
 
 ```sh
-bin/rails "balances:load[samples/account_balances.csv]"
+bin/rails "balances:load[./samples/account_balances.csv]"
 ```
 
 It only ever creates accounts. Re-running with a file that has grown adds the new
